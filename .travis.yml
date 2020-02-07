@@ -61,13 +61,12 @@ env:
   - TOXENV=lint
 
 install:
+  - sudo rm -rf $HOME/.cache/pip
   - if echo "$TOXENV" | grep -q 'pyhash' ; then sudo apt-get -q install -y libboost-python-dev; fi
   - if echo "$TOXENV" | grep -q '^py2'   ; then pip install --upgrade pip virtualenv; fi
-  - if [[ $(uname -m) == 's390x' ]]; then sudo chown -R travis:travis $HOME/.cache/pip/wheels; fi
   - pip install tox
 
 script:
-  - ls -la $HOME/.cache/pip/wheels
   - tox -e $TOXENV
 
 after_success:
