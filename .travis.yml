@@ -63,6 +63,7 @@ env:
 install:
   - if echo "$TOXENV" | grep -q 'pyhash' ; then sudo apt-get -q install -y libboost-python-dev; fi
   - if echo "$TOXENV" | grep -q '^py2'   ; then pip install --upgrade pip virtualenv; fi
+  - if [[ $(uname -m) == 's390x' ]]; then sudo chown -R travis:travis $HOME/.cache/pip/wheels; pip install service_identity; fi
   - pip install tox
 
 script:
